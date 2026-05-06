@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PDI - Processamento Digital de Imagens</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="window">
+
+  <!-- TITLE BAR -->
+  <div class="titlebar">
+    <span class="titlebar-icon">🖼</span>
+    <span>PDI — Processamento Digital de Imagens</span>
+    <div class="titlebar-btns">
+      <div class="titlebar-btn">_</div>
+      <div class="titlebar-btn">□</div>
+      <div class="titlebar-btn" style="font-size:10px">✕</div>
+    </div>
+  </div>
+
+  <!-- MENU BAR -->
+  <div class="menubar">
+    <div class="menu-root">Arquivo
+      <div class="dropdown">
+        <div class="dd-item" onclick="cmd('abrir')">Abrir…</div>
+        <div class="dd-item" onclick="cmd('salvar')">Salvar saída…</div>
+        <div class="dd-sep"></div>
+        <div class="dd-item" onclick="cmd('sair')">Sair</div>
+      </div>
+    </div>
+    <div class="menu-root">Operações
+      <div class="dropdown">
+        <div class="dd-item" onclick="cmd('rgbhsv')">RGB → HSV</div>
+        <div class="dd-item" onclick="cmd('hsvrgb')">HSV → RGB</div>
+        <div class="dd-sep"></div>
+        <div class="dd-item" onclick="cmd('inversao')">Inversão</div>
+        <div class="dd-item" onclick="cmd('ruido')">Ruído Sal e Pimenta</div>
+        <div class="dd-item" onclick="cmd('equalizacao')">Equalização de Histograma</div>
+        <div class="dd-item" onclick="cmd('media')">Filtro Média (N8)</div>
+        <div class="dd-item" onclick="cmd('mediana')">Filtro Mediana (N8)</div>
+        <div class="dd-sep"></div>
+        <div class="dd-item" onclick="cmd('binarizacao')">Binarização</div>
+        <div class="dd-item" onclick="cmd('laplaciano')">Laplaciano (N4)</div>
+        <div class="dd-item" onclick="cmd('sobel')">Sobel</div>
+        <div class="dd-sep"></div>
+        <div class="dd-item" onclick="cmd('compressao')">Compressão Gama</div>
+        <div class="dd-item" onclick="cmd('limiarizacao')">Limiarização</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <button class="tb-btn" onclick="cmd('abrir')">📂 Abrir</button>
+    <button class="tb-btn" onclick="cmd('salvar')">💾 Salvar</button>
+    <div class="toolbar-sep"></div>
+    <button class="tb-btn primary" onclick="cmd('copiar')">◀ Copiar S→E</button>
+    <button class="tb-btn danger"  onclick="cmd('reset')">↺ Resetar Original</button>
+    <div class="toolbar-sep"></div>
+    <button class="tb-btn" onclick="cmd('inversao')">Inversão</button>
+    <button class="tb-btn" onclick="cmd('ruido')">Ruído S&amp;P</button>
+    <button class="tb-btn" onclick="cmd('equalizacao')">Equalização</button>
+    <button class="tb-btn" onclick="cmd('media')">Média N8</button>
+    <button class="tb-btn" onclick="cmd('mediana')">Mediana N8</button>
+    <button class="tb-btn" onclick="cmd('laplaciano')">Laplaciano</button>
+    <button class="tb-btn" onclick="cmd('sobel')">Sobel</button>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- IMAGE PANELS -->
+    <div class="images-row">
+      <div class="image-panel">
+        <div class="panel-header">Imagem de Entrada (E)</div>
+        <div class="canvas-wrap">
+          <canvas id="canvas1" width="400" height="300"></canvas>
+        </div>
+      </div>
+      <div class="image-panel">
+        <div class="panel-header">Imagem de Saída (S)</div>
+        <div class="canvas-wrap">
+          <canvas id="canvas2" width="400" height="300"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- PARAMETER CONTROLS -->
+    <div class="controls-row">
+
+      <!-- RGB / HSV -->
+      <div class="group">
+        <div class="group-title">RGB / HSV</div>
+        <div class="group-body">
+          <div class="row"><span class="lbl">Val 1:</span><input type="number" id="v1" value="255" min="0" max="360"></div>
+          <div class="row"><span class="lbl">Val 2:</span><input type="number" id="v2" value="128" min="0" max="100"></div>
+          <div class="row"><span class="lbl">Val 3:</span><input type="number" id="v3" value="0"   min="0" max="100"></div>
+          <button class="ctrl-btn" onclick="cmd('rgbhsv')">RGB → HSV</button>
+          <button class="ctrl-btn" onclick="cmd('hsvrgb')">HSV → RGB</button>
+        </div>
+      </div>
+
+      <!-- Binarização -->
+      <div class="group">
+        <div class="group-title">Binarização</div>
+        <div class="group-body">
+          <div class="row"><span class="lbl">Limiar T:</span><input type="number" id="limiar" value="128" min="0" max="255"></div>
+          <button class="ctrl-btn full" onclick="cmd('binarizacao')">Binarizar</button>
+        </div>
+      </div>
+
+      <!-- Compressão Gama -->
+      <div class="group">
+        <div class="group-title">Compressão Gama</div>
+        <div class="group-body">
+          <div class="row"><span class="lbl">c:</span><input type="number" id="editC" value="1" min="0" step="0.1"></div>
+          <div class="row"><span class="lbl">γ (gama):</span><input type="number" id="editGama" value="1" min="0" step="0.1"></div>
+          <button class="ctrl-btn full" onclick="cmd('compressao')">Aplicar</button>
+        </div>
+      </div>
+
+      <!-- Limiarização -->
+      <div class="group">
+        <div class="group-title">Limiarização</div>
+        <div class="group-body">
+          <div class="row"><span class="lbl">Mín:</span><input type="number" id="limMin" value="100" min="0" max="255"></div>
+          <div class="row"><span class="lbl">Máx:</span><input type="number" id="limMax" value="200" min="0" max="255"></div>
+          <div class="row"><span class="lbl">Val saída:</span><input type="number" id="limVal" value="255" min="0" max="255"></div>
+          <button class="ctrl-btn full" onclick="cmd('limiarizacao')">Aplicar</button>
+        </div>
+      </div>
+
+      <!-- Sobel info -->
+      <div class="group">
+        <div class="group-title">Sobel — hover na saída</div>
+        <div class="group-body">
+          <div class="row"><span class="lbl">Magnitude:</span><input type="text" id="eMag" value="—" readonly></div>
+          <div class="row"><span class="lbl">Direção:</span><input type="text"   id="eDir" value="—" readonly></div>
+          <button class="ctrl-btn full" onclick="cmd('sobel')">Aplicar Sobel</button>
+        </div>
+      </div>
+
+    </div><!-- /controls-row -->
+  </div><!-- /body -->
+
+  <!-- STATUS BAR -->
+  <div class="statusbar">
+    <div class="status-pane" id="status">Carregando imagem de teste…</div>
+    <div class="status-pane fixed" id="status-pos">x=—  y=—</div>
+  </div>
+
+</div><!-- /window -->
+
+<!-- MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal-win" id="modal-win">
+    <div class="modal-title" id="modal-title">Resultado</div>
+    <div class="modal-body"  id="modal-body"></div>
+    <div class="modal-foot">
+      <button class="ctrl-btn" onclick="closeModal()" style="min-width:80px">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- FILE INPUT (oculto) -->
+<input type="file" id="fileInput" accept="image/*" style="display:none">
+
+<!-- SCRIPTS: ordem importa -->
+<script src="js/state.js"></script>
+<script src="js/filters.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>

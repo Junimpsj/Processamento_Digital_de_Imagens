@@ -1,0 +1,21 @@
+# Lazarus / Free Pascal — artefatos de compilação
+*.o
+*.ppu
+*.compiled
+*.a
+*.or
+*.res
+*.rsj
+
+# Lazarus — sessão do editor (estado local, não compartilhar)
+*.lps
+
+# Binários gerados
+project1
+project1.exe
+
+# Pasta de backup manual
+backup/
+
+# Claude Code
+.claude/

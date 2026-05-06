@@ -1,0 +1,245 @@
+/* ── RESET & BASE ──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, sans-serif;
+  font-size: 13px;
+  background: #6e6e6e;
+  color: #000;
+}
+
+/* ── WINDOW (ocupa toda a tela) ────────────────────────────── */
+.window {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #d4d0c8;
+}
+
+/* ── TITLE BAR ─────────────────────────────────────────────── */
+.titlebar {
+  background: linear-gradient(to right, #000080, #1084d0);
+  color: #fff;
+  padding: 4px 8px;
+  font-weight: bold;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  user-select: none;
+  flex-shrink: 0;
+}
+.titlebar-icon { font-size: 16px; }
+.titlebar-btns { margin-left: auto; display: flex; gap: 2px; }
+.titlebar-btn {
+  width: 18px; height: 16px;
+  background: #d4d0c8;
+  border: 1px solid; border-color: #fff #404040 #404040 #fff;
+  cursor: pointer; display: flex; align-items: center;
+  justify-content: center; font-size: 9px; color: #000; line-height: 1;
+}
+
+/* ── MENU BAR ──────────────────────────────────────────────── */
+.menubar {
+  background: #d4d0c8;
+  border-bottom: 1px solid #808080;
+  display: flex;
+  padding: 1px 4px;
+  flex-shrink: 0;
+}
+.menu-root {
+  position: relative;
+  padding: 3px 10px;
+  cursor: default;
+  user-select: none;
+  font-size: 13px;
+}
+.menu-root:hover,
+.menu-root.open { background: #000080; color: #fff; }
+
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%; left: 0;
+  background: #d4d0c8;
+  border: 2px solid; border-color: #fff #404040 #404040 #fff;
+  min-width: 220px; z-index: 999;
+  box-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+}
+.menu-root.open .dropdown { display: block; }
+.dd-item {
+  padding: 4px 20px 4px 26px;
+  cursor: default; white-space: nowrap; font-size: 13px;
+}
+.dd-item:hover { background: #000080; color: #fff; }
+.dd-sep { border-top: 1px solid #808080; margin: 3px 6px; }
+
+/* ── TOOLBAR ───────────────────────────────────────────────── */
+.toolbar {
+  background: #d4d0c8;
+  border-bottom: 1px solid #a0a0a0;
+  padding: 4px 6px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+.toolbar-sep {
+  width: 1px; height: 22px;
+  background: #808080;
+  margin: 0 4px;
+}
+.tb-btn {
+  border: 2px solid; border-color: #fff #808080 #808080 #fff;
+  background: #d4d0c8;
+  padding: 3px 10px;
+  font-size: 12px; font-family: inherit;
+  cursor: pointer; white-space: nowrap;
+  min-height: 26px; outline: none;
+}
+.tb-btn:hover  { background: #c4c0b8; }
+.tb-btn:active { border-color: #808080 #fff #fff #808080; }
+.tb-btn.primary { font-weight: bold; }
+.tb-btn.danger  { color: #800000; font-weight: bold; }
+
+/* ── MAIN BODY ─────────────────────────────────────────────── */
+.body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  padding: 6px;
+  gap: 6px;
+}
+
+/* ── IMAGE PANELS ──────────────────────────────────────────── */
+.images-row {
+  display: flex;
+  gap: 6px;
+  flex: 1;
+  min-height: 0;
+}
+
+.image-panel {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid; border-color: #808080 #fff #fff #808080;
+  background: #c8c4bc;
+}
+.panel-header {
+  background: #b8b4ac;
+  border-bottom: 1px solid #808080;
+  padding: 3px 8px;
+  font-weight: bold; font-size: 12px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.canvas-wrap {
+  flex: 1;
+  min-height: 200px;
+  background: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: crosshair;
+}
+canvas {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  image-rendering: pixelated;
+  cursor: crosshair;
+}
+
+/* ── CONTROLS ──────────────────────────────────────────────── */
+.controls-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+.group {
+  border: 2px solid; border-color: #808080 #fff #fff #808080;
+  padding: 12px 8px 8px 8px;
+  position: relative;
+  background: #d4d0c8;
+}
+.group-title {
+  position: absolute;
+  top: -9px; left: 8px;
+  background: #d4d0c8;
+  padding: 0 4px;
+  font-weight: bold; font-size: 11px;
+  white-space: nowrap;
+}
+.group-body { display: flex; flex-direction: column; gap: 5px; }
+
+.row { display: flex; align-items: center; gap: 5px; white-space: nowrap; }
+.lbl { min-width: 68px; text-align: right; font-size: 12px; }
+
+input[type="number"],
+input[type="text"] {
+  border: 2px solid; border-color: #808080 #fff #fff #808080;
+  background: #fff; padding: 2px 4px;
+  font-size: 12px; font-family: inherit;
+  width: 68px; outline: none;
+}
+input[readonly] { background: #d4d0c8; }
+
+.ctrl-btn {
+  border: 2px solid; border-color: #fff #808080 #808080 #fff;
+  background: #d4d0c8;
+  padding: 3px 10px; font-size: 12px; font-family: inherit;
+  cursor: pointer; white-space: nowrap; outline: none;
+  min-height: 24px;
+}
+.ctrl-btn:hover  { background: #c4c0b8; }
+.ctrl-btn:active { border-color: #808080 #fff #fff #808080; }
+.ctrl-btn.full   { width: 100%; }
+
+/* ── STATUS BAR ────────────────────────────────────────────── */
+.statusbar {
+  border-top: 1px solid #808080;
+  display: flex; gap: 3px; padding: 3px 5px;
+  flex-shrink: 0;
+}
+.status-pane {
+  border: 2px solid; border-color: #808080 #fff #fff #808080;
+  padding: 1px 6px; font-size: 11px; flex: 1;
+  overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+}
+.status-pane.fixed { flex: none; min-width: 150px; }
+
+/* ── MODAL ─────────────────────────────────────────────────── */
+.overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.35); z-index: 2000;
+  align-items: center; justify-content: center;
+}
+.overlay.show { display: flex; }
+.modal-win {
+  background: #d4d0c8;
+  border: 2px solid; border-color: #fff #404040 #404040 #fff;
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.5);
+  min-width: 300px; max-width: 440px;
+}
+.modal-title {
+  background: linear-gradient(to right, #000080, #1084d0);
+  color: #fff; font-weight: bold; padding: 4px 8px; font-size: 13px;
+}
+.modal-body  { padding: 16px 18px 12px; line-height: 1.7; font-size: 13px; }
+.modal-foot  { display: flex; justify-content: center; padding: 8px; }
+
+/* ── RESPONSIVE ────────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .images-row { flex-direction: column; }
+  .image-panel { min-height: 220px; }
+  .toolbar-sep { display: none; }
+}

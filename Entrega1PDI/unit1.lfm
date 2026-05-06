@@ -1,0 +1,366 @@
+object Form1: TForm1
+  Left = 0
+  Height = 750
+  Top = 0
+  Width = 1400
+  Caption = 'PDI - Processamento Digital de Imagens'
+  ClientHeight = 750
+  ClientWidth = 1400
+  Menu = MainMenu1
+  OnCreate = FormCreate
+  LCLVersion = '3.8.0.0'
+  object LblEntrada: TLabel
+    Left = 168
+    Height = 20
+    Top = 20
+    Width = 70
+    Caption = 'ENTRADA'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblSaida: TLabel
+    Left = 772
+    Height = 20
+    Top = 20
+    Width = 50
+    Caption = 'SAÍDA'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Image1: TImage
+    Left = 16
+    Height = 400
+    Top = 48
+    Width = 400
+  end
+  object Image2: TImage
+    Left = 620
+    Height = 400
+    Top = 48
+    Width = 400
+    OnMouseMove = Image2MouseMove
+  end
+  object LblCopiar: TLabel
+    Left = 440
+    Height = 20
+    Top = 198
+    Width = 120
+    Caption = 'Saída → Entrada'
+  end
+  object BtnCopiar: TButton
+    Left = 440
+    Height = 32
+    Top = 222
+    Width = 130
+    Caption = '← Copiar'
+    TabOrder = 0
+    OnClick = BtnCopiarClick
+  end
+  object LblLimiarizacao: TLabel
+    Left = 16
+    Height = 20
+    Top = 468
+    Width = 85
+    Caption = 'Limiarização'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblLimMin: TLabel
+    Left = 16
+    Height = 20
+    Top = 500
+    Width = 35
+    Caption = 'Mín:'
+  end
+  object EditLimMin: TEdit
+    Left = 54
+    Height = 28
+    Top = 496
+    Width = 70
+    Text = '100'
+    TabOrder = 1
+  end
+  object LblLimMax: TLabel
+    Left = 16
+    Height = 20
+    Top = 536
+    Width = 35
+    Caption = 'Máx:'
+  end
+  object EditLimMax: TEdit
+    Left = 54
+    Height = 28
+    Top = 532
+    Width = 70
+    Text = '200'
+    TabOrder = 2
+  end
+  object LblLimVal: TLabel
+    Left = 16
+    Height = 20
+    Top = 572
+    Width = 44
+    Caption = 'Saída:'
+  end
+  object EditLimVal: TEdit
+    Left = 64
+    Height = 28
+    Top = 568
+    Width = 70
+    Text = '255'
+    TabOrder = 3
+  end
+  object LblBinarizacao: TLabel
+    Left = 160
+    Height = 20
+    Top = 468
+    Width = 80
+    Caption = 'Binarização'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblLimiar: TLabel
+    Left = 160
+    Height = 20
+    Top = 500
+    Width = 60
+    Caption = 'Limiar T:'
+  end
+  object EditLimiar: TEdit
+    Left = 224
+    Height = 28
+    Top = 496
+    Width = 70
+    Text = '127'
+    TabOrder = 4
+  end
+  object LblCompressao: TLabel
+    Left = 320
+    Height = 20
+    Top = 468
+    Width = 150
+    Caption = 'Compressão S = c·r^γ'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblC: TLabel
+    Left = 320
+    Height = 20
+    Top = 500
+    Width = 25
+    Caption = 'c ='
+  end
+  object EditC: TEdit
+    Left = 348
+    Height = 28
+    Top = 496
+    Width = 80
+    Text = '1.0'
+    TabOrder = 5
+  end
+  object LblGama: TLabel
+    Left = 320
+    Height = 20
+    Top = 536
+    Width = 25
+    Caption = 'γ ='
+  end
+  object EditGama: TEdit
+    Left = 348
+    Height = 28
+    Top = 532
+    Width = 80
+    Text = '1.0'
+    TabOrder = 6
+  end
+  object LblRGBHSV: TLabel
+    Left = 450
+    Height = 20
+    Top = 468
+    Width = 80
+    Caption = 'RGB ↔ HSV'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblVal1: TLabel
+    Left = 450
+    Height = 20
+    Top = 500
+    Width = 55
+    Caption = 'R ou H:'
+  end
+  object EditVal1: TEdit
+    Left = 510
+    Height = 28
+    Top = 496
+    Width = 80
+    Text = '255'
+    TabOrder = 7
+  end
+  object LblVal2: TLabel
+    Left = 450
+    Height = 20
+    Top = 536
+    Width = 55
+    Caption = 'G ou S:'
+  end
+  object EditVal2: TEdit
+    Left = 510
+    Height = 28
+    Top = 532
+    Width = 80
+    Text = '0'
+    TabOrder = 8
+  end
+  object LblVal3: TLabel
+    Left = 450
+    Height = 20
+    Top = 572
+    Width = 55
+    Caption = 'B ou V:'
+  end
+  object EditVal3: TEdit
+    Left = 510
+    Height = 28
+    Top = 568
+    Width = 80
+    Text = '0'
+    TabOrder = 9
+  end
+  object MemoInfo: TMemo
+    Left = 602
+    Height = 120
+    Top = 468
+    Width = 175
+    Lines.Strings = (
+      'H: 0 a 360   R: 0 a 255'
+      'S: 0 a 100   G: 0 a 255'
+      'V: 0 a 100   B: 0 a 255'
+    )
+    ReadOnly = True
+    ScrollBars = ssNone
+    TabOrder = 10
+  end
+  object LblSobel: TLabel
+    Left = 800
+    Height = 20
+    Top = 468
+    Width = 230
+    Caption = 'Sobel — mova o mouse sobre a saída'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblMagnitude: TLabel
+    Left = 800
+    Height = 20
+    Top = 500
+    Width = 70
+    Caption = 'Magnitude:'
+  end
+  object EditMagnitude: TEdit
+    Left = 876
+    Height = 28
+    Top = 496
+    Width = 100
+    ReadOnly = True
+    TabOrder = 11
+    Text = '-'
+  end
+  object LblDirecao: TLabel
+    Left = 800
+    Height = 20
+    Top = 536
+    Width = 60
+    Caption = 'Direção:'
+  end
+  object EditDirecao: TEdit
+    Left = 876
+    Height = 28
+    Top = 532
+    Width = 100
+    ReadOnly = True
+    TabOrder = 12
+    Text = '-'
+  end
+  object OpenDialog1: TOpenDialog
+    Filter = 'Imagens BMP|*.bmp|Todos os arquivos|*.*'
+    Left = 1050
+    Top = 650
+  end
+  object SaveDialog1: TSaveDialog
+    DefaultExt = 'bmp'
+    Filter = 'Imagens BMP|*.bmp'
+    Left = 1150
+    Top = 650
+  end
+  object MainMenu1: TMainMenu
+    Left = 1280
+    Top = 650
+    object MnuArquivo: TMenuItem
+      Caption = 'Arquivo'
+      object MnuAbrir: TMenuItem
+        Caption = 'Abrir Imagem'
+        OnClick = MnuAbrirClick
+      end
+      object MnuSalvar: TMenuItem
+        Caption = 'Salvar Imagem'
+        OnClick = MnuSalvarClick
+      end
+      object MnuSair: TMenuItem
+        Caption = 'Sair'
+        OnClick = MnuSairClick
+      end
+    end
+    object MnuOperacoes: TMenuItem
+      Caption = 'Operações'
+      object MnuRGBtoHSV: TMenuItem
+        Caption = 'RGB → HSV'
+        OnClick = MnuRGBtoHSVClick
+      end
+      object MnuHSVtoRGB: TMenuItem
+        Caption = 'HSV → RGB'
+        OnClick = MnuHSVtoRGBClick
+      end
+      object MnuInversao: TMenuItem
+        Caption = 'Inversão (cinza)'
+        OnClick = MnuInversaoClick
+      end
+      object MnuRuido: TMenuItem
+        Caption = 'Adicionar Ruído Sal e Pimenta (10%)'
+        OnClick = MnuRuidoClick
+      end
+      object MnuEqualizacao: TMenuItem
+        Caption = 'Equalização de Histograma'
+        OnClick = MnuEqualizacaoClick
+      end
+      object MnuMedia: TMenuItem
+        Caption = 'Filtro da Média (N8)'
+        OnClick = MnuMediaClick
+      end
+      object MnuMediana: TMenuItem
+        Caption = 'Filtro da Mediana (N8)'
+        OnClick = MnuMedianaClick
+      end
+      object MnuBinarizacao: TMenuItem
+        Caption = 'Binarização'
+        OnClick = MnuBinarizacaoClick
+      end
+      object MnuLaplaciano: TMenuItem
+        Caption = 'Laplaciano N4'
+        OnClick = MnuLaplacianoClick
+      end
+      object MnuSobel: TMenuItem
+        Caption = 'Detecção de Bordas (Sobel)'
+        OnClick = MnuSobelClick
+      end
+      object MnuCompressao: TMenuItem
+        Caption = 'Compressão S = c·r^γ'
+        OnClick = MnuCompressaoClick
+      end
+      object MnuLimiarizacao: TMenuItem
+        Caption = 'Limiarização'
+        OnClick = MnuLimiarizacaoClick
+      end
+    end
+  end
+end
